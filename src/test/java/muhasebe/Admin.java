@@ -10,6 +10,8 @@ import org.testng.annotations.Test;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
 
+import java.util.concurrent.TimeUnit;
+
 import static io.restassured.RestAssured.*;
 
 public class Admin extends Values {
@@ -107,5 +109,10 @@ public class Admin extends Values {
         Assert.assertEquals(statusLine, "HTTP/1.1 200 OK", "Status line returned was false !");
 
 
+    }
+
+    public static <url> void getResponseTime(String url){
+        System.out.println("The time taken to fetch the response "+get(url)
+                .timeIn(TimeUnit.MILLISECONDS) + " milliseconds");
     }
 }
