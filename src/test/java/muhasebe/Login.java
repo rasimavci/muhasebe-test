@@ -52,6 +52,7 @@ public class  Login extends Values{
         Assert.assertEquals(statusLine, "HTTP/1.1 200 OK", "Status line returned was false !");
         Assert.assertEquals(jsonPathEvaluator.get("id"), getRandomid(), "ID returned was false !");
         //Assert.assertEquals(jsonPathEvaluator.get("password"),password1,  "Password returned was false !");
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/authenticate");
     }
 
     @Test
@@ -88,7 +89,7 @@ public class  Login extends Values{
 
         Assert.assertEquals(statusCode , 200, "Status code returned was false !");
         Assert.assertEquals(statusLine , "HTTP/1.1 200 OK", "Status line returned was false !");
-        Util.getResponseTime();
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/admin-login");
     }
 
     @Test
@@ -118,6 +119,7 @@ public class  Login extends Values{
 
         Assert.assertEquals(statusCode , 200, "Status code returned was false !");
         Assert.assertEquals(statusLine , "HTTP/1.1 200 OK", "Status line returned was false !");
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/get-token");
 
 
 
@@ -152,6 +154,7 @@ public class  Login extends Values{
 
         Assert.assertEquals(statusCode , 200, "Status code returned was false !");
         Assert.assertEquals(statusLine , "HTTP/1.1 200 OK", "Status line returned was false !");
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/admin-login");
 
 
     }

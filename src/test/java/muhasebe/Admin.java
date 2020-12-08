@@ -10,8 +10,6 @@ import org.testng.annotations.Test;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
 
-import java.util.concurrent.TimeUnit;
-
 import static io.restassured.RestAssured.*;
 
 public class Admin extends Values {
@@ -30,12 +28,9 @@ public class Admin extends Values {
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
                 .contentType("application/json")
-                .queryParam("kwargs",getKwargs()).
-                        body("{\n" +
-                                "  \"kwargs\": \""+getKwargs()+"\"\n" +
-                                "}").
+                .queryParam("kwargs",Values.getKwargs()).
                         when().
-                        get("/admin/check-access");
+                        get("/admin/check-access?kwargs=kwargs");
 
         String body = r.getBody().asString();
         int statusCode = r.getStatusCode();
@@ -56,14 +51,13 @@ public class Admin extends Values {
     @Test
     public void listUsers(ITestContext context){
 
-
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
                 //.contentType(ContentType.JSON)
                 .contentType("application/json").queryParam("page","1").
                         when().
-                        get("/admin/list-users?page=1");
+                        post("/admin/list-users?page=1");
 
         String body = r.getBody().asString();
         int statusCode = r.getStatusCode();
@@ -98,7 +92,7 @@ public class Admin extends Values {
         int statusCode = r.getStatusCode();
         String statusLine = r.getStatusLine();
 
-        System.out.println(statusCode); 
+        System.out.println(statusCode);
         System.out.println(statusLine);
         System.out.println(body);
 
@@ -109,10 +103,5 @@ public class Admin extends Values {
         Assert.assertEquals(statusLine, "HTTP/1.1 200 OK", "Status line returned was false !");
 
 
-    }
-
-    public static <url> void getResponseTime(String url){
-        System.out.println("The time taken to fetch the response "+get(url)
-                .timeIn(TimeUnit.MILLISECONDS) + " milliseconds");
     }
 }

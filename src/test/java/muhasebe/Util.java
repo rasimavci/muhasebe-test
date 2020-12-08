@@ -55,8 +55,8 @@ public class Util {
         context.setAttribute("access_token", access_token);
     }
 
-    public static void getResponseTime(){
-        System.out.println("The time taken to fetch the response "+get(userUrl)
+    public static <url> void getResponseTime(String url){
+        System.out.println("The time taken to fetch the response "+get(url)
                 .timeIn(TimeUnit.MILLISECONDS) + " milliseconds");
     }
     public static String getCurrentDate(){

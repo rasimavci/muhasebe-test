@@ -30,7 +30,7 @@ public class Debug extends Values {
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
                 .contentType("application/json").queryParam("id",Values.getRandomid()).
                         when().
-                        get("https://muhasebe-denetleme-backend.herokuapp.com/debug/getuser/"+Values.getName1()+"/");
+                        get("/debug/getuser-legacy/" +Values.getName1() + "/?id=" + Values.getAdminId()+"/");
 
         String body = r.getBody().asString();
         int statusCode = r.getStatusCode();
@@ -41,7 +41,6 @@ public class Debug extends Values {
         System.out.println(body);
 
         JsonPath jsonPathEvaluator = r.jsonPath();
-        // String name = jsonPathEvaluator.get("name");
 
         Assert.assertEquals(statusCode , 200, "Status code returned was false !");
         Assert.assertEquals(statusLine , "HTTP/1.1 200 OK", "Status line returned was false !");
@@ -64,7 +63,7 @@ public class Debug extends Values {
                 .contentType("application/json").
                         body("").
                         when().
-                        get("/debug/");
+                        get("/debug/-legacy");
 
         String body = r.getBody().asString();
         int statusCode = r.getStatusCode();
@@ -91,7 +90,7 @@ public class Debug extends Values {
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
                 .contentType("application/json").
                         when().
-                        get("/debug/get_sample_json");
+                        get("/debug/get_sample_json-legacy");
 
         String body = r.getBody().asString();
         int statusCode = r.getStatusCode();
@@ -102,10 +101,10 @@ public class Debug extends Values {
         System.out.println(body);
 
         JsonPath jsonPathEvaluator = r.jsonPath();
-        // String name = jsonPathEvaluator.get("name");
 
         Assert.assertEquals(statusCode , 200, "Status code returned was false !");
         Assert.assertEquals(statusLine , "HTTP/1.1 200 OK", "Status line returned was false !");
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com//debug/get_sample_json-legacy");
 
 
 

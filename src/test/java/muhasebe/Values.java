@@ -16,8 +16,15 @@ public class Values extends Util {
     private static String randomid = Util.randomid1;
     private static String kwargs = "kwargs";
     private static String adminId = "588";
+    private static String enotebookid = "123";
 
+    public static String getEnotebookid() {
+        return enotebookid;
+    }
 
+    public static void setEnotebookid(String enotebookid) {
+        Values.enotebookid = enotebookid;
+    }
 
     public static String getAdminId() {
         return adminId;
@@ -27,10 +34,6 @@ public class Values extends Util {
         Values.adminId = adminId;
     }
 
-    public Values() {
-
-
-    }
 
     public static String getKwargs() {
         return kwargs;

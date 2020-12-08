@@ -30,10 +30,10 @@ public class User extends Values {
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
                 .contentType("application/json").
                         body("{\n" +
-                                "  \"password\": \"string\"\n" +
+                                "  \"password\": \"1234\"\n" +
                                 "}").
                         when().
-                        get("/user/changepass/");
+                        post("/user/changepass/");
 
         String body = r.getBody().asString();
         int statusCode = r.getStatusCode();
@@ -57,7 +57,7 @@ public class User extends Values {
         Assert.assertEquals(jsonPathEvaluator.get("lastlogin"),getLastlogin1(),  "Last Login returned was false !");
         Assert.assertEquals(jsonPathEvaluator.get("activeuntil"),getActiveuntil1(),  "Active Until returned was false !");
         //Assert.assertEquals(jsonPathEvaluator.get("password"),password1,  "Password returned was false !");
-        Util.getResponseTime();
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/changepass");
 
     }
     @Test
@@ -94,7 +94,7 @@ public class User extends Values {
         Assert.assertEquals(jsonPathEvaluator.get("lastlogin"),getLastlogin1(),  "Last Login returned was false !");
         Assert.assertEquals(jsonPathEvaluator.get("activeuntil"),getActiveuntil1(),  "Active Until returned was false !");
         //Assert.assertEquals(jsonPathEvaluator.get("password"),password1,  "Password returned was false !");
-        Util.getResponseTime();
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user");
 
     }
     @Test
@@ -103,11 +103,10 @@ public class User extends Values {
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
-                //.contentType(ContentType.JSON)
                 .contentType("application/json").
                         body("").
                         when().
-                        get("/user/historydebug/");
+                        get("/user/historydebug-legacy/");
 
         String body = r.getBody().asString();
         int statusCode = r.getStatusCode();
@@ -123,9 +122,227 @@ public class User extends Values {
         Assert.assertEquals(statusCode , 200, "Status code returned was false !");
         Assert.assertEquals(statusLine , "HTTP/1.1 200 OK", "Status line returned was false !");
 
-        Util.getResponseTime();
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
 
     }
+    @Test //düzenle
+    public void checkFile (ITestContext context) {
 
+        RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
+        Response r = given()
+                .header("Authorization", "Bearer " + context.getAttribute("access_token"))
+                .contentType("application/json").
+                        body("").
+                        when().
+                        get("/user/historydebug-legacy/");
+
+        String body = r.getBody().asString();
+        int statusCode = r.getStatusCode();
+        String statusLine = r.getStatusLine();
+
+        System.out.println(statusCode);
+        System.out.println(statusLine);
+        System.out.println(body);
+
+        JsonPath jsonPathEvaluator = r.jsonPath();
+        // String name = jsonPathEvaluator.get("name");
+
+        Assert.assertEquals(statusCode, 200, "Status code returned was false !");
+        Assert.assertEquals(statusLine, "HTTP/1.1 200 OK", "Status line returned was false !");
+
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
+
+    }
+    @Test //düzenle
+    public void denetleme (ITestContext context) {
+
+        RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
+        Response r = given()
+                .header("Authorization", "Bearer " + context.getAttribute("access_token"))
+                .contentType("application/json").
+                        body("").
+                        when().
+                        get("/user/historydebug-legacy/");
+
+        String body = r.getBody().asString();
+        int statusCode = r.getStatusCode();
+        String statusLine = r.getStatusLine();
+
+        System.out.println(statusCode);
+        System.out.println(statusLine);
+        System.out.println(body);
+
+        JsonPath jsonPathEvaluator = r.jsonPath();
+        // String name = jsonPathEvaluator.get("name");
+
+        Assert.assertEquals(statusCode, 200, "Status code returned was false !");
+        Assert.assertEquals(statusLine, "HTTP/1.1 200 OK", "Status line returned was false !");
+
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
+    }
+    @Test //düzenle
+    public void sendXMLinZip (ITestContext context) {
+
+        RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
+        Response r = given()
+                .header("Authorization", "Bearer " + context.getAttribute("access_token"))
+                .contentType("application/json").
+                        body("").
+                        when().
+                        get("/user/historydebug-legacy/");
+
+        String body = r.getBody().asString();
+        int statusCode = r.getStatusCode();
+        String statusLine = r.getStatusLine();
+
+        System.out.println(statusCode);
+        System.out.println(statusLine);
+        System.out.println(body);
+
+        JsonPath jsonPathEvaluator = r.jsonPath();
+        // String name = jsonPathEvaluator.get("name");
+
+        Assert.assertEquals(statusCode, 200, "Status code returned was false !");
+        Assert.assertEquals(statusLine, "HTTP/1.1 200 OK", "Status line returned was false !");
+
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
+    }
+    @Test //düzenle
+    public void sendXML (ITestContext context) {
+
+        RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
+        Response r = given()
+                .header("Authorization", "Bearer " + context.getAttribute("access_token"))
+                .contentType("application/json").
+                        body("").
+                        when().
+                        get("/user/historydebug-legacy/");
+
+        String body = r.getBody().asString();
+        int statusCode = r.getStatusCode();
+        String statusLine = r.getStatusLine();
+
+        System.out.println(statusCode);
+        System.out.println(statusLine);
+        System.out.println(body);
+
+        JsonPath jsonPathEvaluator = r.jsonPath();
+        // String name = jsonPathEvaluator.get("name");
+
+        Assert.assertEquals(statusCode, 200, "Status code returned was false !");
+        Assert.assertEquals(statusLine, "HTTP/1.1 200 OK", "Status line returned was false !");
+
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
+    }
+    @Test //düzenle
+    public void testUploadFile (ITestContext context) {
+
+        RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
+        Response r = given()
+                .header("Authorization", "Bearer " + context.getAttribute("access_token"))
+                .contentType("application/json").
+                        body("").
+                        when().
+                        get("/user/historydebug-legacy/");
+
+        String body = r.getBody().asString();
+        int statusCode = r.getStatusCode();
+        String statusLine = r.getStatusLine();
+
+        System.out.println(statusCode);
+        System.out.println(statusLine);
+        System.out.println(body);
+
+        JsonPath jsonPathEvaluator = r.jsonPath();
+        // String name = jsonPathEvaluator.get("name");
+
+        Assert.assertEquals(statusCode, 200, "Status code returned was false !");
+        Assert.assertEquals(statusLine, "HTTP/1.1 200 OK", "Status line returned was false !");
+
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
+    }
+    @Test //düzenle
+    public void history (ITestContext context) {
+
+        RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
+        Response r = given()
+                .header("Authorization", "Bearer " + context.getAttribute("access_token"))
+                .contentType("application/json").
+                        body("").
+                        when().
+                        get("/user/historydebug-legacy/");
+
+        String body = r.getBody().asString();
+        int statusCode = r.getStatusCode();
+        String statusLine = r.getStatusLine();
+
+        System.out.println(statusCode);
+        System.out.println(statusLine);
+        System.out.println(body);
+
+        JsonPath jsonPathEvaluator = r.jsonPath();
+        // String name = jsonPathEvaluator.get("name");
+
+        Assert.assertEquals(statusCode, 200, "Status code returned was false !");
+        Assert.assertEquals(statusLine, "HTTP/1.1 200 OK", "Status line returned was false !");
+
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
+    }
+    @Test
+    public void getComparisonOverview (ITestContext context) {
+
+        RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
+        Response r = given()
+                .header("Authorization", "Bearer " + context.getAttribute("access_token"))
+                .contentType("application/json").
+                        body("").
+                        when().
+                        get("/user/get_comparison_overview");
+
+        String body = r.getBody().asString();
+        int statusCode = r.getStatusCode();
+        String statusLine = r.getStatusLine();
+
+        System.out.println(statusCode);
+        System.out.println(statusLine);
+        System.out.println(body);
+
+        JsonPath jsonPathEvaluator = r.jsonPath();
+        // String name = jsonPathEvaluator.get("name");
+
+        Assert.assertEquals(statusCode, 200, "Status code returned was false !");
+        Assert.assertEquals(statusLine, "HTTP/1.1 200 OK", "Status line returned was false !");
+
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
+    }
+    @Test
+    public void getSpecificComparison (ITestContext context) {
+
+        RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
+        Response r = given()
+                .header("Authorization", "Bearer " + context.getAttribute("access_token"))
+                .contentType("application/json").
+                        body("{\n" +
+                                "  \"enotebookid\": \""+getEnotebookid()+"\"\n" +
+                                "}").
+                        when().
+                        post("/user/get_specific_comparison");
+
+        String body = r.getBody().asString();
+        int statusCode = r.getStatusCode();
+        String statusLine = r.getStatusLine();
+
+        System.out.println(statusCode);
+        System.out.println(statusLine);
+        System.out.println(body);
+
+        JsonPath jsonPathEvaluator = r.jsonPath();
+        // String name = jsonPathEvaluator.get("name");
+
+        Assert.assertEquals(statusCode, 200, "Status code returned was false !");
+        Assert.assertEquals(statusLine, "HTTP/1.1 200 OK", "Status line returned was false !");
+
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
+    }
 
 }
