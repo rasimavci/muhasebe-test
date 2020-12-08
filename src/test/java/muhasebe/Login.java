@@ -67,7 +67,7 @@ public class  Login extends Values{
                 .contentType("application/json").
                         body("{\n" +
                                 "  \"id\": \""+getRandomid()+"\",\n" +
-                                "  \"password\": \"1234\"\n" +
+                                "  \"password\": \""+getPassword1()+"\"\n" +
                                 "}").
                         when().
                         post("/admin-login");
@@ -98,7 +98,7 @@ public class  Login extends Values{
                 .contentType("application/json").
                         body("{\n" +
                                 "  \"id\": \""+getRandomid()+"\",\n" +
-                                "  \"password\": \"1234\"\n" +
+                                "  \"password\": \""+getPassword1()+"\"\n" +
                                 "}").
                         when().
                         post("/get_token/");
@@ -129,7 +129,7 @@ public class  Login extends Values{
                 .contentType("application/json").
                         body("{\n" +
                                 "  \"id\": \""+getRandomid()+"\",\n" +
-                                "  \"password\": \"1234\"\n" +
+                                "  \"password\": \""+getPassword1()+"\"\n" +
                                 "}").
                         when().
                         post("/admin-login");

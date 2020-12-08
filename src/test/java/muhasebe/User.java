@@ -31,7 +31,7 @@ public class User extends Values {
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
                 .contentType("application/json").body("{\n" +
-                        "  \"password\": \"1234\"\n" +
+                        "  \"password\": \""+getPassword1()+"\"\n" +
                         "}").
                         when().
                         post("/user/changepass/");
@@ -61,7 +61,7 @@ public class User extends Values {
                 .contentType("application/json").
                         body("").
                         when().
-                        get("/user");
+                        get("/user/-legacy");
 
         String body = r.getBody().asString();
         int statusCode = r.getStatusCode();
@@ -312,7 +312,7 @@ public class User extends Values {
         Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/get_comparison_overview");
     }
 
-    @Test
+    @Test //enotebook id değeri bilinmediği için oluşturulamıyor
     public void getSpecificComparison(ITestContext context){
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
