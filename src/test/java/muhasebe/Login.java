@@ -16,11 +16,14 @@ public class  Login extends Values{
 
     @BeforeClass
     public static void register (ITestContext context){
+
         Util.register(context);
 
     }
-    @Test
+
+    /*@Test
     public void authenticate(ITestContext context) {
+
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
@@ -53,7 +56,7 @@ public class  Login extends Values{
         Assert.assertEquals(jsonPathEvaluator.get("id"), getRandomid(), "ID returned was false !");
         //Assert.assertEquals(jsonPathEvaluator.get("password"),password1,  "Password returned was false !");
         Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/authenticate");
-    }
+    }*/
 
     @Test
     public void registerLogin(ITestContext context) {
@@ -63,14 +66,7 @@ public class  Login extends Values{
                 //.contentType(ContentType.JSON)
                 .contentType("application/json").
                         body("{\n" +
-                                "  \"id\": \""+Util.randomid1+"\",\n" +
-                                "  \"name\": \"rasim1234\",\n" +
-                                "  \"company\": \"ronwell\",\n" +
-                                "  \"phonenumber\": \"string\",\n" +
-                                "  \"address\": \"myaddress\",\n" +
-                                "  \"email\": \"rasim.avci3@gmail.com\",\n" +
-                                "  \"lastlogin\": \""+getCurrentDate()+"\",\n" +
-                                "  \"activeuntil\": \""+getCurrentDate()+"\",\n" +
+                                "  \"id\": \""+getRandomid()+"\",\n" +
                                 "  \"password\": \"1234\"\n" +
                                 "}").
                         when().
@@ -101,7 +97,7 @@ public class  Login extends Values{
                 //.contentType(ContentType.JSON)
                 .contentType("application/json").
                         body("{\n" +
-                                "  \"id\": \""+Util.randomid1+"\",\n" +
+                                "  \"id\": \""+getRandomid()+"\",\n" +
                                 "  \"password\": \"1234\"\n" +
                                 "}").
                         when().
@@ -121,21 +117,18 @@ public class  Login extends Values{
         Assert.assertEquals(statusLine , "HTTP/1.1 200 OK", "Status line returned was false !");
         Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/get-token");
 
-
-
-
     }
 
 
     @Test
     public void adminLogin(ITestContext context) {
+
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
-                //.contentType(ContentType.JSON)
                 .contentType("application/json").
                         body("{\n" +
-                                "  \"id\": \""+Util.randomid1+"\",\n" +
+                                "  \"id\": \""+getRandomid()+"\",\n" +
                                 "  \"password\": \"1234\"\n" +
                                 "}").
                         when().
@@ -151,11 +144,9 @@ public class  Login extends Values{
 
         JsonPath jsonPathEvaluator = r.jsonPath();
 
-
         Assert.assertEquals(statusCode , 200, "Status code returned was false !");
         Assert.assertEquals(statusLine , "HTTP/1.1 200 OK", "Status line returned was false !");
         Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/admin-login");
-
 
     }
 

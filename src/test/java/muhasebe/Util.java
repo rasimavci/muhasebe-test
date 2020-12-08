@@ -18,15 +18,9 @@ public class Util {
 
     static Random random = new Random();
     static int random_id = random.nextInt(1000);
-
     static String randomid1 = String.valueOf(random_id);
 
-
-    static String userUrl = "https://muhasebe-denetleme-backend.herokuapp.com/user";
-
     public static void register(ITestContext context) {
-
-
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
         Response r = given()

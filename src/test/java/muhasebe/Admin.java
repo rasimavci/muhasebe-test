@@ -16,10 +16,10 @@ public class Admin extends Values {
 
     @BeforeClass
     public static void register (ITestContext context){
+
         Util.register(context);
 
     }
-
 
     @Test
     public void checkAccess(ITestContext context){
@@ -30,7 +30,7 @@ public class Admin extends Values {
                 .contentType("application/json")
                 .queryParam("kwargs",Values.getKwargs()).
                         when().
-                        get("/admin/check-access?kwargs=kwargs");
+                        get("/admin/check-access");
 
         String body = r.getBody().asString();
         int statusCode = r.getStatusCode();
@@ -44,7 +44,7 @@ public class Admin extends Values {
 
         Assert.assertEquals(statusCode , 200, "Status code returned was false !");
         Assert.assertEquals(statusLine , "HTTP/1.1 200 OK", "Status line returned was false !");
-
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/admin/check-access");
 
     }
 
@@ -71,6 +71,7 @@ public class Admin extends Values {
 
         Assert.assertEquals(statusCode , 200, "Status code returned was false !");
         Assert.assertEquals(statusLine , "HTTP/1.1 200 OK", "Status line returned was false !");
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/admin/list-users?page=1");
 
     }
     @Test
@@ -101,7 +102,7 @@ public class Admin extends Values {
 
         Assert.assertEquals(statusCode, 200, "Status code returned was false !");
         Assert.assertEquals(statusLine, "HTTP/1.1 200 OK", "Status line returned was false !");
-
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/admin/change-user-data");
 
     }
 }

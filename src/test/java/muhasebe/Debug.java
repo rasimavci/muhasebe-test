@@ -17,13 +17,13 @@ public class Debug extends Values {
 
     @BeforeClass
     public static void register (ITestContext context){
+
         Util.register(context);
 
     }
 
     @Test
     public void getUser(ITestContext context){
-
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
         Response r = given()
@@ -53,10 +53,11 @@ public class Debug extends Values {
         Assert.assertEquals(jsonPathEvaluator.get("lastlogin"),getLastlogin1(),  "Last Login returned was false !");
         Assert.assertEquals(jsonPathEvaluator.get("activeuntil"),getActiveuntil1(),  "Active Until returned was false !");
 
-
     }
+
     @Test
     public void debug(ITestContext context){
+
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
@@ -79,12 +80,11 @@ public class Debug extends Values {
         Assert.assertEquals(statusCode , 200, "Status code returned was false !");
         Assert.assertEquals(statusLine , "HTTP/1.1 200 OK", "Status line returned was false !");
 
-
-
-
     }
+
     @Test
     public void getSampleJson(ITestContext context){
+
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
@@ -105,8 +105,6 @@ public class Debug extends Values {
         Assert.assertEquals(statusCode , 200, "Status code returned was false !");
         Assert.assertEquals(statusLine , "HTTP/1.1 200 OK", "Status line returned was false !");
         Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com//debug/get_sample_json-legacy");
-
-
 
     }
 
