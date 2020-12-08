@@ -316,15 +316,14 @@ public class User extends Values {
         Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
     }
     @Test
-    public void getSpecificComparison (ITestContext context) {
+    public void getSpecificComparison(ITestContext context){
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
-                .contentType("application/json").
-                        body("{\n" +
-                                "  \"enotebookid\": \""+getEnotebookid()+"\"\n" +
-                                "}").
+                .contentType("application/json").body("{\n" +
+                        "  \"enotebookid\": \"1234\"\n" +
+                        "}").
                         when().
                         post("/user/get_specific_comparison");
 
@@ -337,12 +336,11 @@ public class User extends Values {
         System.out.println(body);
 
         JsonPath jsonPathEvaluator = r.jsonPath();
-        // String name = jsonPathEvaluator.get("name");
 
-        Assert.assertEquals(statusCode, 200, "Status code returned was false !");
-        Assert.assertEquals(statusLine, "HTTP/1.1 200 OK", "Status line returned was false !");
+        Assert.assertEquals(statusCode , 200, "Status code returned was false !");
+        Assert.assertEquals(statusLine , "HTTP/1.1 200 OK", "Status line returned was false !");
 
-        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/get_specific_comparison");
     }
 
 }
