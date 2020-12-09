@@ -1,11 +1,15 @@
 package muhasebe;
 
 import io.restassured.RestAssured;
+import io.restassured.builder.MultiPartSpecBuilder;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import io.restassured.specification.MultiPartSpecification;
+import io.restassured.specification.RequestSpecification;
 import org.junit.Test;
 import org.testng.ITestContext;
 
+import java.net.URI;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
@@ -19,6 +23,7 @@ public class Util {
     static Random random = new Random();
     static int random_id = random.nextInt(1000);
     static String randomid1 = String.valueOf(random_id);
+    private RequestSpecification spec;
 
     public static void register(ITestContext context) {
 
@@ -62,4 +67,8 @@ public class Util {
 
     }
 
+
+
+
 }
+

@@ -59,12 +59,13 @@ public class Debug extends Values {
     public void debug(ITestContext context){
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
+        String endpoint = "/debug/-legacy";
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
                 .contentType("application/json").
                         body("").
                         when().
-                        get("/debug/-legacy");
+                        get(endpoint);
 
         String body = r.getBody().asString();
         int statusCode = r.getStatusCode();
@@ -86,11 +87,12 @@ public class Debug extends Values {
     public void getSampleJson(ITestContext context){
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
+        String endpoint = "/debug/get_sample_json-legacy";
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
                 .contentType("application/json").
                         when().
-                        get("/debug/get_sample_json-legacy");
+                        get(endpoint);
 
         String body = r.getBody().asString();
         int statusCode = r.getStatusCode();

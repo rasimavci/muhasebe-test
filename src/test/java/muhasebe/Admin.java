@@ -25,12 +25,13 @@ public class Admin extends Values {
     public void checkAccess(ITestContext context){
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
+        String endpoint = "/admin/check-access/";
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
                 .contentType("application/json")
                 .queryParam("kwargs",Values.getKwargs()).
                         when().
-                        get("/admin/check-access");
+                        get(endpoint);
 
         String body = r.getBody().asString();
         int statusCode = r.getStatusCode();
@@ -52,12 +53,12 @@ public class Admin extends Values {
     public void listUsers(ITestContext context){
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
+        String endpoint = "/admin/list-users?page=1";
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
-                //.contentType(ContentType.JSON)
                 .contentType("application/json").queryParam("page","1").
                         when().
-                        post("/admin/list-users?page=1");
+                        post(endpoint);
 
         String body = r.getBody().asString();
         int statusCode = r.getStatusCode();
@@ -78,6 +79,7 @@ public class Admin extends Values {
     public void changeUserData(ITestContext context) {
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
+        String endpoint = "/admin/change-user-data";
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
                 .contentType("application/json").
@@ -87,7 +89,7 @@ public class Admin extends Values {
                                 "  \"user_id\": \""+getRandomid()+"\"\n" +
                                 "}").
                         when().
-                        post("/admin/change-user-data");
+                        post(endpoint);
 
         String body = r.getBody().asString();
         int statusCode = r.getStatusCode();

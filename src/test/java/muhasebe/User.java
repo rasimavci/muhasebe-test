@@ -21,6 +21,11 @@ import static io.restassured.RestAssured.*;
 
 public class User extends Values {
 
+    @BeforeMethod
+    public static void file(ITestContext context) {
+
+    }
+
     @BeforeClass
     public static void register (ITestContext context){
 
@@ -32,13 +37,15 @@ public class User extends Values {
     public void changePass(ITestContext context){
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
+        String endpoint = "/user/changepass/";
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
-                .contentType("application/json").body("{\n" +
+                .contentType("application/json")
+                .body("{\n" +
                         "  \"password\": \""+getPassword1()+"\"\n" +
                         "}").
                         when().
-                        post("/user/changepass/");
+                        post(endpoint);
 
         String body = r.getBody().asString();
         int statusCode = r.getStatusCode();
@@ -60,11 +67,12 @@ public class User extends Values {
     public void user (ITestContext context) {
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
+        String endpoint = "/user/-legacy";
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
                 .contentType("application/json").
                         when().
-                        get("/user/-legacy");
+                        get(endpoint);
 
         String body = r.getBody().asString();
         int statusCode = r.getStatusCode();
@@ -176,7 +184,38 @@ public class User extends Values {
 
         Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
     }*/
+    @Test
+    public void sendXmlinZip(ITestContext context){
 
+        RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
+        String endpoint = "/user/sendxmlinzip/";
+        Response r = given()
+                .header("Authorization", "Bearer " + context.getAttribute("access_token")).contentType("multipart/form-data")
+                .multiPart("files",new File("C:\\Users\\dereay\\Desktop\\Muhasebe\\gelen fatura_3_hata.zip")).
+                        multiPart("files",new File("C:\\Users\\dereay\\Desktop\\Muhasebe\\E-Defteri.xml")).
+                        multiPart("ebillid","random").
+                        multiPart("invoicetype","SATIS").
+                        multiPart("chosenbilltype","SATIS").
+                        multiPart("gelengiden","gelen").body("").
+                        when().
+                        post(endpoint);
+
+        String body = r.getBody().asString();
+        int statusCode = r.getStatusCode();
+        String statusLine = r.getStatusLine();
+
+        System.out.println(statusCode);
+        System.out.println(statusLine);
+        System.out.println(body);
+
+        JsonPath jsonPathEvaluator = r.jsonPath();
+        // String name = jsonPathEvaluator.get("name");
+
+        Assert.assertEquals(statusCode, 200, "Status code returned was false !");
+        Assert.assertEquals(statusLine, "HTTP/1.1 200 OK", "Status line returned was false !");
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
+
+    }
 
 
    /* @Test
@@ -220,7 +259,7 @@ public class User extends Values {
         Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
     }*/
 
-    /*@Test //düzenle
+    /*@Test
     public void testUploadFile (ITestContext context) {
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
@@ -280,11 +319,12 @@ public class User extends Values {
     public void getComparisonOverview (ITestContext context) {
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
+        String endpoint = "/user/get_comparison_overview";
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
                 .contentType("application/json").
                         when().
-                        get("/user/get_comparison_overview");
+                        get(endpoint);
 
         String body = r.getBody().asString();
         int statusCode = r.getStatusCode();
@@ -302,49 +342,20 @@ public class User extends Values {
         Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/get_comparison_overview");
     }
 
-    @BeforeMethod
-    public void sendXmlinZip(ITestContext context){
 
-        RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
-        Response r = given()
-                .header("Authorization", "Bearer " + context.getAttribute("access_token")).contentType("multipart/form-data")
-                .multiPart("files",new File("C:\\Users\\ozdileto\\Desktop\\gelen fatura_3_hata.zip")).
-                        multiPart("files",new File("C:\\Users\\ozdileto\\Desktop\\E-Defteri.xml")).
-                        multiPart("ebillid","random").
-                        multiPart("invoicetype","SATIS").
-                        multiPart("chosenbilltype","SATIS").
-                        multiPart("gelengiden","gelen").body("").
-                        when().
-                        post("/user/sendxmlinzip/");
-
-        String body = r.getBody().asString();
-        int statusCode = r.getStatusCode();
-        String statusLine = r.getStatusLine();
-
-        System.out.println(statusCode);
-        System.out.println(statusLine);
-        System.out.println(body);
-
-        JsonPath jsonPathEvaluator = r.jsonPath();
-        // String name = jsonPathEvaluator.get("name");
-
-        Assert.assertEquals(statusCode, 200, "Status code returned was false !");
-        Assert.assertEquals(statusLine, "HTTP/1.1 200 OK", "Status line returned was false !");
-        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
-
-    }
 
     @Test
     public void getSpecificComparison(ITestContext context){
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
+        String endpoint = "/user/get_specific_comparison";
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
                 .contentType("application/json").body("{\n" +
                         "  \"enotebookid\": \"YEV201905000008\"\n" +
                         "}").
                         when().
-                        post("/user/get_specific_comparison");
+                        post(endpoint);
 
         String body = r.getBody().asString();
         int statusCode = r.getStatusCode();
