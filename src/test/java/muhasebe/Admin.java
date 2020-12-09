@@ -84,7 +84,7 @@ public class Admin extends Values {
                         body("{\n" +
                                 "  \"credential_to_be_changed\": \"name\",\n" +
                                 "  \"value\": \"rasim1234\",\n" +
-                                "  \"user_id\": \""+Util.randomid1+"\"\n" +
+                                "  \"user_id\": \""+getRandomid()+"\"\n" +
                                 "}").
                         when().
                         post("/admin/change-user-data");

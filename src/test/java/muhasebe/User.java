@@ -1,8 +1,10 @@
 package muhasebe;
 
 import io.restassured.RestAssured;
+import io.restassured.builder.MultiPartSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import io.restassured.specification.MultiPartSpecification;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.path.json.JsonPath;
 import static io.restassured.RestAssured.given;
@@ -11,6 +13,7 @@ import org.testng.annotations.Test;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
 
+import java.io.File;
 import java.util.Random;
 
 import static io.restassured.RestAssured.*;
@@ -59,7 +62,6 @@ public class User extends Values {
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
                 .contentType("application/json").
-                        body("").
                         when().
                         get("/user/-legacy");
 
@@ -116,7 +118,7 @@ public class User extends Values {
         Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
 
     }*/
-
+    /*
     @Test //düzenle
     public void checkFile (ITestContext context) {
 
@@ -144,7 +146,7 @@ public class User extends Values {
 
         Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
 
-    }
+    }*/
 
     /*@Test //düzenle
     public void denetleme (ITestContext context) {
@@ -174,16 +176,20 @@ public class User extends Values {
         Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
     }*/
 
-    /*@Test //düzenle
-    public void sendXMLinZip (ITestContext context) {
+    @Test
+    public void sendXmlinZip(ITestContext context){
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
         Response r = given()
-                .header("Authorization", "Bearer " + context.getAttribute("access_token"))
-                .contentType("application/json").
-                        body("").
+                .header("Authorization", "Bearer " + context.getAttribute("access_token")).contentType("multipart/form-data")
+                .multiPart("files",new File("C:\\Users\\ozdileto\\Desktop\\gelen fatura_3_hata.zip")).
+                        multiPart("files",new File("C:\\Users\\ozdileto\\Desktop\\E-Defteri.xml")).
+                        multiPart("ebillid","random").
+                        multiPart("invoicetype","SATIS").
+                        multiPart("chosenbilltype","SATIS").
+                        multiPart("gelengiden","gelen").body("").
                         when().
-                        get("/user/historydebug-legacy/");
+                        post("/user/sendxmlinzip/");
 
         String body = r.getBody().asString();
         int statusCode = r.getStatusCode();
@@ -198,9 +204,22 @@ public class User extends Values {
 
         Assert.assertEquals(statusCode, 200, "Status code returned was false !");
         Assert.assertEquals(statusLine, "HTTP/1.1 200 OK", "Status line returned was false !");
-
         Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
+
+    }
+
+   /* @Test
+    private MultiPartSpecification getMultiPart() {
+        return new MultiPartSpecBuilder("Test-Content-In-File".getBytes()).
+                fileName("gelen fatura.zip").
+                controlName("file").
+                mimeType("text/html").
+                build();
     }*/
+
+    //Response response = RestAssured.given(this.spec)
+      //      .auth().basic("admin", "admin")
+        //    .multiPart(getMultiPart())
 
     /*@Test //düzenle
     public void sendXML (ITestContext context) {
@@ -319,7 +338,7 @@ public class User extends Values {
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
                 .contentType("application/json").body("{\n" +
-                        "  \"enotebookid\": \"1234\"\n" +
+                        "  \"enotebookid\": \"YEV201905000008\"\n" +
                         "}").
                         when().
                         post("/user/get_specific_comparison");
