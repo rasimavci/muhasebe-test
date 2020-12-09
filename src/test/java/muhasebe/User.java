@@ -9,6 +9,7 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.path.json.JsonPath;
 import static io.restassured.RestAssured.given;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
@@ -176,37 +177,7 @@ public class User extends Values {
         Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
     }*/
 
-    @Test
-    public void sendXmlinZip(ITestContext context){
 
-        RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
-        Response r = given()
-                .header("Authorization", "Bearer " + context.getAttribute("access_token")).contentType("multipart/form-data")
-                .multiPart("files",new File("C:\\Users\\ozdileto\\Desktop\\gelen fatura_3_hata.zip")).
-                        multiPart("files",new File("C:\\Users\\ozdileto\\Desktop\\E-Defteri.xml")).
-                        multiPart("ebillid","random").
-                        multiPart("invoicetype","SATIS").
-                        multiPart("chosenbilltype","SATIS").
-                        multiPart("gelengiden","gelen").body("").
-                        when().
-                        post("/user/sendxmlinzip/");
-
-        String body = r.getBody().asString();
-        int statusCode = r.getStatusCode();
-        String statusLine = r.getStatusLine();
-
-        System.out.println(statusCode);
-        System.out.println(statusLine);
-        System.out.println(body);
-
-        JsonPath jsonPathEvaluator = r.jsonPath();
-        // String name = jsonPathEvaluator.get("name");
-
-        Assert.assertEquals(statusCode, 200, "Status code returned was false !");
-        Assert.assertEquals(statusLine, "HTTP/1.1 200 OK", "Status line returned was false !");
-        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
-
-    }
 
    /* @Test
     private MultiPartSpecification getMultiPart() {
@@ -331,7 +302,39 @@ public class User extends Values {
         Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/get_comparison_overview");
     }
 
-    @Test //enotebook id değeri bilinmediği için oluşturulamıyor
+    @BeforeMethod
+    public void sendXmlinZip(ITestContext context){
+
+        RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
+        Response r = given()
+                .header("Authorization", "Bearer " + context.getAttribute("access_token")).contentType("multipart/form-data")
+                .multiPart("files",new File("C:\\Users\\ozdileto\\Desktop\\gelen fatura_3_hata.zip")).
+                        multiPart("files",new File("C:\\Users\\ozdileto\\Desktop\\E-Defteri.xml")).
+                        multiPart("ebillid","random").
+                        multiPart("invoicetype","SATIS").
+                        multiPart("chosenbilltype","SATIS").
+                        multiPart("gelengiden","gelen").body("").
+                        when().
+                        post("/user/sendxmlinzip/");
+
+        String body = r.getBody().asString();
+        int statusCode = r.getStatusCode();
+        String statusLine = r.getStatusLine();
+
+        System.out.println(statusCode);
+        System.out.println(statusLine);
+        System.out.println(body);
+
+        JsonPath jsonPathEvaluator = r.jsonPath();
+        // String name = jsonPathEvaluator.get("name");
+
+        Assert.assertEquals(statusCode, 200, "Status code returned was false !");
+        Assert.assertEquals(statusLine, "HTTP/1.1 200 OK", "Status line returned was false !");
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
+
+    }
+
+    @Test
     public void getSpecificComparison(ITestContext context){
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
