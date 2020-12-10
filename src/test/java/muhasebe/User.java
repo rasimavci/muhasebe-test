@@ -8,11 +8,11 @@ import io.restassured.specification.MultiPartSpecification;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.path.json.JsonPath;
 import static io.restassured.RestAssured.given;
+
+import org.junit.Before;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import org.testng.ITestContext;
-import org.testng.annotations.BeforeClass;
 
 import java.io.File;
 import java.util.Random;
@@ -21,7 +21,7 @@ import static io.restassured.RestAssured.*;
 
 public class User extends Values {
 
-    @BeforeMethod
+    @Test(priority = 1)
     public static void file(ITestContext context) {
 
     }
@@ -128,7 +128,7 @@ public class User extends Values {
 
     }*/
     /*
-    @Test //düzenle
+    @Test
     public void checkFile (ITestContext context) {
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
@@ -157,7 +157,7 @@ public class User extends Values {
 
     }*/
 
-    /*@Test //düzenle
+    /*@Test
     public void denetleme (ITestContext context) {
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
@@ -184,18 +184,18 @@ public class User extends Values {
 
         Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
     }*/
-    @Test
+    @Test(priority = 1)
     public void sendXmlinZip(ITestContext context){
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
         String endpoint = "/user/sendxmlinzip/";
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token")).contentType("multipart/form-data")
-                .multiPart("files",new File("C:\\Users\\dereay\\Desktop\\Muhasebe\\gelen fatura_3_hata.zip")).
-                        multiPart("files",new File("C:\\Users\\dereay\\Desktop\\Muhasebe\\E-Defteri.xml")).
+                .multiPart("files",new File("C:\\Users\\ozdileto\\Desktop\\gelen fatura_3_hata.zip")).
+                        multiPart("files",new File("C:\\Users\\ozdileto\\Desktop\\E-Defteri.xml")).
                         multiPart("ebillid","random").
                         multiPart("invoicetype","SATIS").
-                        multiPart("chosenbilltype","SATIS").
+                        multiPart("chosenbilltype","Gider Faturasi").
                         multiPart("gelengiden","gelen").body("").
                         when().
                         post(endpoint);
@@ -287,7 +287,7 @@ public class User extends Values {
         Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
     }*/
 
-    /*@Test //düzenle
+    /*@Test
     public void history (ITestContext context) {
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
@@ -344,7 +344,7 @@ public class User extends Values {
 
 
 
-    @Test
+    @Test(priority = 2)
     public void getSpecificComparison(ITestContext context){
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
