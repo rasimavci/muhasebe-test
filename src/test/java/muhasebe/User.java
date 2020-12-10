@@ -21,10 +21,10 @@ import static io.restassured.RestAssured.*;
 
 public class User extends Values {
 
-    @Test(priority = 1)
+    /*@Test(priority = 1)
     public static void file(ITestContext context) {
 
-    }
+    }*/
 
     @BeforeClass
     public static void register (ITestContext context){
@@ -33,7 +33,7 @@ public class User extends Values {
 
     }
 
-    @Test
+    @Test(priority = 5)
     public void changePass(ITestContext context){
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
@@ -63,7 +63,7 @@ public class User extends Values {
 
     }
 
-    @Test
+    @Test(priority = 4)
     public void user (ITestContext context) {
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
@@ -184,6 +184,7 @@ public class User extends Values {
 
         Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
     }*/
+
     @Test(priority = 1)
     public void sendXmlinZip(ITestContext context){
 
@@ -216,7 +217,6 @@ public class User extends Values {
         Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
 
     }
-
 
    /* @Test
     private MultiPartSpecification getMultiPart() {
@@ -315,7 +315,7 @@ public class User extends Values {
         Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
     }*/
 
-    @Test
+    @Test(priority = 3)
     public void getComparisonOverview (ITestContext context) {
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";

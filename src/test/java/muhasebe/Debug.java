@@ -22,7 +22,7 @@ public class Debug extends Values {
 
     }
 
-    @Test
+    /*@Test
     public void getUser(ITestContext context){
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
@@ -53,9 +53,9 @@ public class Debug extends Values {
         Assert.assertEquals(jsonPathEvaluator.get("lastlogin"),getLastlogin1(),  "Last Login returned was false !");
         Assert.assertEquals(jsonPathEvaluator.get("activeuntil"),getActiveuntil1(),  "Active Until returned was false !");
 
-    }
+    }*/
 
-    @Test
+    /*@Test
     public void debug(ITestContext context){
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
@@ -81,7 +81,7 @@ public class Debug extends Values {
         Assert.assertEquals(statusCode , 200, "Status code returned was false !");
         Assert.assertEquals(statusLine , "HTTP/1.1 200 OK", "Status line returned was false !");
 
-    }
+    }*/
 
     @Test
     public void getSampleJson(ITestContext context){

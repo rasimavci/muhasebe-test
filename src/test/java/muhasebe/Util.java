@@ -21,7 +21,7 @@ import static io.restassured.RestAssured.*;
 public class Util {
 
     static Random random = new Random();
-    static int random_id = random.nextInt(1000);
+    static int random_id = random.nextInt(1000000);
     static String randomid1 = String.valueOf(random_id);
     private RequestSpecification spec;
 
