@@ -16,7 +16,6 @@ import org.testng.ITestContext;
 
 import java.io.File;
 import java.util.Random;
-
 import static io.restassured.RestAssured.*;
 
 public class User extends Values {
@@ -97,6 +96,34 @@ public class User extends Values {
         //Assert.assertEquals(jsonPathEvaluator.get("password"),password1,  "Password returned was false !");
         Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user");
 
+    }
+    @Test(priority = 6)
+    public void historyDelete (ITestContext context) {
+
+        RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
+        String endpoint = "/user/historydelete?enotebookid=YEV201905000008";
+        Response r = given()
+                .header("Authorization", "Bearer " + context.getAttribute("access_token"))
+                .contentType("application/json").body("{\n" +
+                        "  \"enotebookid\": \"YEV201905000008\"\n" +
+                        "}").
+                        when().
+                        post(endpoint);
+
+        String body = r.getBody().asString();
+        int statusCode = r.getStatusCode();
+        String statusLine = r.getStatusLine();
+
+        System.out.println(statusCode);
+        System.out.println(statusLine);
+        System.out.println(body);
+
+        JsonPath jsonPathEvaluator = r.jsonPath();
+
+        Assert.assertEquals(statusCode, 200, "Status code returned was false !");
+        Assert.assertEquals(statusLine, "HTTP/1.1 200 OK", "Status line returned was false !");
+
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/historydelete?enotebookid=YEV201905000008");
     }
 
     /*@Test
@@ -192,8 +219,8 @@ public class User extends Values {
         String endpoint = "/user/sendxmlinzip/";
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token")).contentType("multipart/form-data")
-                .multiPart("files",new File("C:\\Users\\ozdileto\\Desktop\\gelen fatura_3_hata.zip")).
-                        multiPart("files",new File("C:\\Users\\ozdileto\\Desktop\\E-Defteri.xml")).
+                .multiPart("files",new File("C:\\Users\\dereay\\Desktop\\Muhasebe\\gelen fatura_3_hata.zip")).
+                        multiPart("files",new File("C:\\Users\\dereay\\Desktop\\Muhasebe\\E-Defteri.xml")).
                         multiPart("ebillid","random").
                         multiPart("invoicetype","SATIS").
                         multiPart("chosenbilltype","Gider Faturasi").
