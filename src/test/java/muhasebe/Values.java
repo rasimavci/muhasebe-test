@@ -1,9 +1,7 @@
 package muhasebe;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 public class Values extends Util {
+
     private static String name1 = "rasim1234";
     private static String email1 = "rasim.avci3@gmail.com";
     private static String company1 = "ronwell";
@@ -33,7 +31,6 @@ public class Values extends Util {
     public static void setAdminId(String adminId) {
         Values.adminId = adminId;
     }
-
 
     public static String getKwargs() {
         return kwargs;

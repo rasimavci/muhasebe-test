@@ -1,29 +1,20 @@
 package muhasebe;
 
 import io.restassured.RestAssured;
-import io.restassured.builder.MultiPartSpecBuilder;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import io.restassured.specification.MultiPartSpecification;
-import io.restassured.specification.RequestSpecification;
-import org.junit.Test;
 import org.testng.ITestContext;
-
-import java.net.URI;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-
 import static io.restassured.RestAssured.*;
-
 
 public class Util {
 
     static Random random = new Random();
-    static int random_id = random.nextInt(1000000);
+    static int random_id = random.nextInt(10000);
     static String randomid1 = String.valueOf(random_id);
-    private RequestSpecification spec;
 
     public static void register(ITestContext context) {
 
@@ -54,7 +45,7 @@ public class Util {
         context.setAttribute("access_token", access_token);
     }
 
-    public static <url> void getResponseTime(String url){
+    public static void getResponseTime(String url){
         System.out.println("The time taken to fetch the response "+get(url)
                 .timeIn(TimeUnit.MILLISECONDS) + " milliseconds");
     }
@@ -66,9 +57,6 @@ public class Util {
         return (date.format(formatter));
 
     }
-
-
-
 
 }
 
